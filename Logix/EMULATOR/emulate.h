@@ -375,6 +375,8 @@
 #define	pc_reg()	(*((heapP) char_offset(W, *PC++)))
 #define cnv_pc_reg()	cnv_s(PC++)
 
+#define pc_reg_print() fprintf(DbgFile, "\n((heapP) char_offset(W, *PC)))) %x, (*((heapP) char_offset(W, *PC) %x\n", ((heapP) char_offset(W, *PC)), (*((heapP) char_offset(W, *PC))))
+
 #define	pc_reg_offset()		(*PC++)
 #define	cnv_pc_reg_offset()	cnv_s(PC++)
 
@@ -489,16 +491,19 @@
   /* Load Process Arguments */ \
   I = ArgsNo_PR(CP); \
   P = Args_PR(CP) + I - 1; \
+  P = (heapP) FixHighBytesP(P); \
   for (; I > 0; I--) { \
     X[I] = *P--; \
   } \
 }
+
 
 #define	store_pr_args(I, P) \
 { \
   /* Store Process Arguments */ \
   I = ArgsNo_PR(CP); \
   P = Args_PR(CP) + I - 1; \
+  P = (heapP) FixHighBytesP(P); \
   for (; I > 0; I--) { \
     *P-- = X[I]; \
   } \

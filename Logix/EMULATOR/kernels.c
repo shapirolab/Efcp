@@ -276,7 +276,7 @@ do_string_to_dlist(Arg0, Arg2)
 
       KOutA = Ref_Word(HP);
       for (; StrLen > 0; StrLen--) {
-	*HP++ = Word(*PChar++, L_IntTag);
+	      *HP++ = Word(*PChar++, L_IntTag);
       }
       /*  append difference list L1  */
       *HP++ = Arg2;
@@ -344,7 +344,7 @@ do_list_to_string(Arg0, Arg1)
 	}
 	*((short *) PChar) = (short) (Int_Val(Va) & MaxShort);
 	PChar += shortbits/charbits;
-	break;
+	break;                                                                                                                                                                                                                                                                                                                                                                              
       case 2 :
 	switch (Tag_of(Va)) {
 	case IntTag:
@@ -1238,7 +1238,11 @@ do_link(Arg)
 
   Va = *Pa;
   Va = Off_List(Va);
-  deref(Va, Pa);
+  // deref(Va, Pa); AH
+  while (IsRef(Va)) {
+    Pa = Ref_Val(Va);
+    Va = *Pa;
+  }
   if ((!IsStr(Va)) || (Str_Type(Pa) != CharType)) {
     if (IsVar(Va)) {
       sus_tbl_add(Pa);

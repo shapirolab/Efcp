@@ -48,6 +48,8 @@
 #include	"global.h"
 #include	"macros.h"
 
+FILE	*DbgFile;			/* Debugging File */ // AH
+
 #define in_term(P, Base, End)	((P >= Base) && (P < End))
 
 /*
@@ -849,8 +851,8 @@ do_melt(Arg)
       register heapP Pb = Pa + 2;
 
       if (ended_heap((HP+Count))) {
-	err_tbl_add(MACHINE, ErHPSPACE);
-	return(False);
+		err_tbl_add(MACHINE, ErHPSPACE);
+		return(False);
       }
       for (; Count > 0; Count--) {
 	*HP++ = *Pb++;
@@ -879,7 +881,7 @@ do_melt(Arg)
       case Tag(0x0f, RefFlag):
 	{
 	  register heapP Pb = ((heapP) ((char *) MTP + (int) Ref_Val(*MTP)));
-
+	  Pb = FixHighBytesP(Pb); // AH
 	  if (!in_term(Pb, MltdTerm, MltdVars)) {
 	    return(False);
 	  }
@@ -961,6 +963,7 @@ do_melt(Arg)
 	{
 	  register heapP Pb = ((heapP) ((char *) MTP + (int) L_Ref_Val(*MTP)));
 
+	  Pb = FixHighBytesP(Pb); // AH
 	  if (!in_term(Pb, MltdTerm, MltdVars)) {
 	    return(False);
 	  }

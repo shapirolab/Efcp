@@ -1,7 +1,7 @@
 # fcp make
 SHELL = /bin/sh
-GCC = gcc -m32
-CFLAGS = -c -DULTRIX -DLINUX
+GCC = clang
+CFLAGS = -c -DMACINTOSH -DULTRIX
 
 INCLUDES = -I.
 

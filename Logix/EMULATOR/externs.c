@@ -655,6 +655,7 @@ print_term(Val, Ptr)
       {
 	register int I = 20;
 
+
 	while (IsList(*P) && (I > 0)) {
 	  print_term(Off_List(*P), P);
 	  I--;
@@ -795,4 +796,16 @@ print_stats()
   }
 #endif
   return(True);
+}
+
+print_dump(heapP P, int length)
+{
+  register int i, j;
+  fprintf(DbgFile, "\n");
+  for (i = length, j =0; i > 0; i--, j++) {
+    fprintf(DbgFile, "%08x ", *(P+j));
+    if (((j != 0)) && ((j % 4) == 0)) {
+      fprintf(DbgFile, "\n");
+    }
+  }
 }
