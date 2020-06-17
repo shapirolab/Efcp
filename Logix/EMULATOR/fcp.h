@@ -193,7 +193,12 @@ typedef trailT	*trailP;
 */
 
 // AH - fix high bytes
+#ifdef MAC64OSX
 #define FixHighBytesP(P) (heapP) (((unsigned long) P & 0x0fffffff) | (HOByte64Bits | HOByte))
+#else
+#define FixHighBytesP(P) (heapP) (P)
+#endif
+
 
 #define IsRef(V)        (Flag_of(V) == RefFlag)
 #define Ref_Val(V)	((heapP) FixHighBytesP(V))
@@ -217,13 +222,17 @@ typedef trailT	*trailP;
 
 #define HOByteMask	0xf0000000
 
+#ifdef MAC64OSX
 #define HOByteMask64Bits 0xffffffff00000000 // AH
+#endif
 
 unsigned int HOByte;
+
+#ifdef MAC64OSX
 unsigned long HOByte64Bits;
+#endif
 
 #define	HOPage	0x10000000
-
 
 #define Var_Val(V)	((heapP) FixHighBytesP((((V) >> VarShift) & VarValMask)))
 

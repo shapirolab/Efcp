@@ -172,7 +172,9 @@ fcp(argc, argv)
     }
 #endif
 
+#ifdef MAC64OSX
     HOByte64Bits = HOByteMask64Bits & ((unsigned long) PMem); // AH
+#endif
 
     LinkBase = (linkP) (PMem+RsrvSize);
     LinkEnd = LinkBase + (LinkSize / sizeof(linkT));
@@ -331,7 +333,10 @@ fcp(argc, argv)
     }
 #endif
 
+#ifdef MAC64OSX
     HOByte64Bits = (HOByteMask64Bits | HOByteMask) & ((unsigned long) PMem); // AH
+#endif
+
     HOByte = HOByteMask & ((int) PMem);
 
     MemEnd = PMem + (RsrvSize+LinkSize+HeapSize);
