@@ -1238,11 +1238,7 @@ do_link(Arg)
 
   Va = *Pa;
   Va = Off_List(Va);
-  // deref(Va, Pa); AH
-  while (IsRef(Va)) {
-    Pa = Ref_Val(Va);
-    Va = *Pa;
-  }
+  deref(Va, Pa);
   if ((!IsStr(Va)) || (Str_Type(Pa) != CharType)) {
     if (IsVar(Va)) {
       sus_tbl_add(Pa);

@@ -112,13 +112,12 @@ typedef trailT	*trailP;
  ** Heap
  */
   
-
 #define	Def_HeapSize	5000*1024*2*sizeof(heapT)
 #define Heap_TH		200*1024
 
 #define Null	((heapP) 0)
   
-#define ended_heap(P)  ( ((heapP) (P) < CurHeapLimit) ? False : heap_ended(P) )
+#define ended_heap(P)  ( ((heapP) (P) < CurHeapLimit) ? False : heap_ended((heapP) (P)) )
 #define	heap_space(UnitSize)	(((CurHeapLimit - HP)*sizeof(heapT))/UnitSize)
 #define in_current_heap(P)	((P >= CurHeap) && (P < CurHeapEnd))
 
@@ -234,7 +233,11 @@ unsigned long HOByte64Bits;
 
 #define	HOPage	0x10000000
 
+#ifdef MAC64OSX
 #define Var_Val(V)	((heapP) FixHighBytesP((((V) >> VarShift) & VarValMask)))
+#else
+#define Var_Val(V)	((heapP) ((((V) >> VarShift) & VarValMask) | HOByte))
+#endif
 
 #define IsZeroed(V)	(((V) & VarValBits) == 0x0)
 

@@ -48,8 +48,6 @@
 #include	"global.h"
 #include	"macros.h"
 
-FILE	*DbgFile;			/* Debugging File */ // AH
-
 #define in_term(P, Base, End)	((P >= Base) && (P < End))
 
 /*

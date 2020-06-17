@@ -375,8 +375,6 @@
 #define	pc_reg()	(*((heapP) char_offset(W, *PC++)))
 #define cnv_pc_reg()	cnv_s(PC++)
 
-#define pc_reg_print() fprintf(DbgFile, "\n((heapP) char_offset(W, *PC)))) %x, (*((heapP) char_offset(W, *PC) %x\n", ((heapP) char_offset(W, *PC)), (*((heapP) char_offset(W, *PC))))
-
 #define	pc_reg_offset()		(*PC++)
 #define	cnv_pc_reg_offset()	cnv_s(PC++)
 

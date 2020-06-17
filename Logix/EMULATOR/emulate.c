@@ -71,7 +71,6 @@ emulate(Prcdr, W)
   register int Ib, Ic;
 
   register char *Ca, *Cb;
-  
 
   register heapP HBT;
 
@@ -96,7 +95,7 @@ emulate(Prcdr, W)
       {
 	      register heapP P;
   
-        FLs_allocate((PR_Header + 2), P, HP);
+        FLs_allocate((PR_Header + 2), P, HP); // AH@@@only in new emulator why?
       
         pr_init(2, P);
 
@@ -656,8 +655,7 @@ emulate(Prcdr, W)
       case Tag(0x0d, RefFlag):
       case Tag(0x0e, RefFlag):
       case Tag(0x0f, RefFlag):
-	// AH was *Pa = Ref_Word(((heapP) ((char *) Pa + (int) Ref_Val(*Pa))));
-  *Pa = Ref_Word(((heapP) ((char *) Pa + (int) (*Pa))));
+	*Pa = Ref_Word(((heapP) ((char *) Pa + (int) Ref_Val(*Pa))));
 	Pa++;
 	continue;
       case IntTag:
@@ -688,9 +686,8 @@ emulate(Prcdr, W)
       case Tag(0x0d, L_RefFlag):
       case Tag(0x0e, L_RefFlag):
       case Tag(0x0f, L_RefFlag):
-	*Pa = L_Ref_Word(((heapP) ((char *) Pa + (int) (*Pa))));
-	// AH was *Pa = Ref_Word(((heapP) ((char *) Pa + (int) Ref_Val(*Pa))));
-  Pa++;
+	*Pa = L_Ref_Word(((heapP) ((char *) Pa + (int) Ref_Val(*Pa))));
+	Pa++;
 	continue;
       case L_IntTag: 
       case L_NilTag: 

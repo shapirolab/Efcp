@@ -335,9 +335,8 @@ fcp(argc, argv)
 
 #ifdef MAC64OSX
     HOByte64Bits = (HOByteMask64Bits | HOByteMask) & ((unsigned long) PMem); // AH
-#endif
-
     HOByte = HOByteMask & ((int) PMem);
+#endif
 
     MemEnd = PMem + (RsrvSize+LinkSize+HeapSize);
     /* Load Link */
@@ -372,6 +371,10 @@ fcp(argc, argv)
     }
     HeapBase = (heapP) Base;
 
+#ifndef MAC64OSX
+  	HOByte = HOByteMask & ((int) HeapBase);
+#endif
+  
     HeapEnd = HeapBase + (HeapSize / sizeof(heapT));
     if (((((int) HeapEnd) & HOByteMask) != HOByte)) {
       fprintf(DbgFile, "fcp: Working storage too large.\n");
